@@ -8,8 +8,8 @@ use scrypto_unit::*;
 use scrypto::prelude::*;
 mod neuracle_time_gateway;
 
-const PACKAGE: &str = "ground_finance";
-const BLUEPRINT: &str = "TestEngine";
+const PACKAGE: &str = "ground_test";
+const BLUEPRINT: &str = "GroundTestEngine";
 
 struct GroundTestEnv<'a, L: SubstateStore> {
     env: TestEnv<'a, L>,
@@ -64,7 +64,7 @@ impl<'a, L: SubstateStore> GroundTestEnv<'a, L> {
 
         self.env.create_user(name);
         self.env.acting_as(name);
-        let receipt = self.env.call_method(self.test_component, "init_delegator", vec![scrypto_encode(&maximum_monthly_allowance)]);
+        let receipt = self.env.call_method(self.test_component, "init_credit_user", vec![scrypto_encode(&maximum_monthly_allowance)]);
         println!("INIT RESOURCES FOR NEW DELEGATOR, RECEPIT: {:?}", receipt);
         assert!(receipt.result.is_ok());
 
@@ -562,7 +562,7 @@ fn new_test_env<L: SubstateStore>(mut env: TestEnv<L>) -> GroundTestEnv<L> {
 
     env.create_user("tester");
     env.acting_as("tester");
-    env.publish_package(PACKAGE, include_package!("ground_finance_test"));
+    env.publish_package(PACKAGE, include_package!("ground_test"));
     env.using_package(PACKAGE);
     let mut receipt = env.call_function(BLUEPRINT, "new", vec![]);
     println!("NEW TEST COMPONENT, RECEIPT: {:?}", receipt);

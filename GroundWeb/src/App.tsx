@@ -4,7 +4,7 @@ import './App.css'
 import Notiflix from 'notiflix'
 import { ManifestBuilder } from 'pte-sdk'
 import { getAccountAddress, signTransaction } from 'pte-browser-extension-sdk'
-import { CreditSBT, GroundCreditComponent, GroundLendingComponent, IDSBT, InstallmentCreditBadge, InstallmentCreditRequestBadge, LendingAccount, StableCoin } from './assets/GROUND'
+import { CreditSBT, GroundCreditComponent, GroundLendingComponent, IDSBT, InstallmentCreditBadge, InstallmentCreditRequestBadge, LendingAccount, StableCoin } from './assets/GROUND_ADDRESS'
 
 function App() {
   const [count, setCount] = useState(0)
