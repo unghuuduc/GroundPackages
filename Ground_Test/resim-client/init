@@ -1,0 +1,9 @@
+CALL_METHOD ComponentAddress("02b1fda21fe1fd0f006b7d449efddf5ad5a6a19b6cde327b0e4dec") "init"; 
+
+CALL_METHOD ComponentAddress("02b1fda21fe1fd0f006b7d449efddf5ad5a6a19b6cde327b0e4dec") "init_stake_for_validator_node"; 
+
+CALL_METHOD ComponentAddress("02b1fda21fe1fd0f006b7d449efddf5ad5a6a19b6cde327b0e4dec") "update_neuracle_data" "1657901742"; 
+
+CALL_METHOD ComponentAddress("02b1fda21fe1fd0f006b7d449efddf5ad5a6a19b6cde327b0e4dec") "lending_use_dao"; 
+
+CALL_METHOD_WITH_ALL_RESOURCES ComponentAddress("02c4049163491f8072d5a75c2f137ddc8571728e0bedba6183b164") "deposit_batch"; 

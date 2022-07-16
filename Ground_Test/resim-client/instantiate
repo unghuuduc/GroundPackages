@@ -1,0 +1,3 @@
+CALL_FUNCTION PackageAddress("011b03a978cc91779a8b18e72fa763c23867f1f3df198e175ac594") "GroundTestEngine" "new";
+
+CALL_METHOD_WITH_ALL_RESOURCES ComponentAddress("02c4049163491f8072d5a75c2f137ddc8571728e0bedba6183b164") "deposit_batch"; 
