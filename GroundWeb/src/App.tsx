@@ -54,8 +54,7 @@ function App() {
         maximum_allowance = maximum_allowance / 12
       }
     } else if (credit_type == "Installment") {
-      let name = data2[1].fields[0].name
-      credit_type = name + ' ' + credit_type + " Credit"
+      credit_type = credit_type + " Credit"
       allowance = 0
     }
 
@@ -221,19 +220,45 @@ function App() {
       } else {
         var debt_status = null
 
-        if (!borrowerInfo![7]) {
-          debt_status = null
+        let unix_timestamp = parseInt(borrowerInfo![3]);
+
+        var debt_due = null
+
+        if (unix_timestamp == 0) {
+          debt_due = null
         } else {
-          debt_status = <div><br/><a style={red}>You're already late on your repayment, please repay your debt!</a></div>
+          var date = new Date(unix_timestamp * 1000);
+
+          let date_format = date.toLocaleString();
+
+          let current = Math.floor(Date.now() / 1000)
+
+          console.log(current)
+
+          if (current <= unix_timestamp) {
+            debt_status = null
+          } else {
+            debt_status = <><br/><a style={red}>You're already late on your repayment, please repay your debt!</a></>
+          }
+
+          debt_due = <><br /> Your debt due at: <a style={blanchedalmond}> {date_format}</a></>
         }
-        
+
+        var maximum_allowance = null
+
+        if (borrowerInfo![0] == "Installment Credit") {
+          maximum_allowance = null
+        } else {
+          maximum_allowance = <><br /> Your maximum allowance: <a style={blanchedalmond}>{borrowerInfo![6]} </a></>
+        }
+
         return <div className="borrower-info"><div>
-          You're using a <a style={blanchedalmond}>{borrowerInfo![0]} </a>
+          You're using <a style={blanchedalmond}>{borrowerInfo![0]} </a>
           <br /> Credit Score: <a style={blanchedalmond}>{borrowerInfo![1]} </a>
           <br /> Total debt: <a style={blanchedalmond}>{borrowerInfo![2]} </a>
-          <br /> Your debt due in: <a style={blanchedalmond}>{borrowerInfo![3]} </a>
+          {debt_due}
           <br /> Your accumulated repayment: <a style={blanchedalmond}>{borrowerInfo![4]} </a>
-          <br /> Your maximum allowance: <a style={blanchedalmond}>{borrowerInfo![6]} </a>
+          {maximum_allowance}
           <br /> Your current allowance: <a style={blanchedalmond}>{borrowerInfo![5]} </a>
           {debt_status}
         </div></div>
@@ -483,15 +508,15 @@ function App() {
     const manifest = new ManifestBuilder()
       .createProofFromAccount(accountAddress!, IDSBT)
       .popFromAuthZone("IDProof")
-      .withdrawFromAccount(accountAddress!, InstallmentCreditRequestBadge)
+      .withdrawFromAccountByAmount(accountAddress!, 1, InstallmentCreditRequestBadge)
       .takeFromWorktop(InstallmentCreditRequestBadge, "request_bucket")
-      .callMethod(GroundCreditComponent, 'get_installment_credit_badge', [`Proof("IDProof") Bucket("request_bucket")`])
+      .callMethod(GroundCreditComponent, 'get_installment_credit_badge', [`Bucket("request_bucket") Proof("IDProof")`])
       .takeFromWorktop(InstallmentCreditBadge, "badge")
       .createProofFromAccount(accountAddress!, IDSBT)
       .popFromAuthZone("IDProof2")
       .createProofFromAccount(accountAddress!, CreditSBT)
       .popFromAuthZone("CreditProof")
-      .callMethod(GroundLendingComponent, 'installment_credit', [`Proof("IDProof") Proof("CreditProof") Bucket("badge")`])
+      .callMethod(GroundLendingComponent, 'installment_credit', [`Proof("IDProof2") Proof("CreditProof") Bucket("badge")`])
       .callMethodWithAllResources(accountAddress!, 'deposit_batch')
       .build()
       .toString();
@@ -503,6 +528,7 @@ function App() {
     } else {
       failure_big("Failed", '' + receipt.logs.toString());
     }
+    setRefresh(true)
   }
 
   function Role_name() {
@@ -548,8 +574,8 @@ function App() {
   return (
     <div className="App">
       <div>
-        <a href="https://github.com/unghuuduc/NeuRacle" target="_blank">
-          <img src="/logo.svg" className="logo" alt="Vite logo" />
+        <a href="https://github.com/unghuuduc/GroundPackages" target="_blank">
+          <img src="/logo.svg" className="logo" alt="Ground logo" />
         </a>
         <a href="https://github.com/unghuuduc/NeuRacle" target="_blank">
           <img src={neuracleLogo} className="logo neuracle" alt="NeuRacle logo" />

@@ -916,7 +916,7 @@ blueprint! {
 
                             amount -= new_debt + new_debt_interest;
 
-                            total_repaid += new_debt;
+                            total_repaid += new_debt + new_debt_interest;
 
                             let debt_start = credit_data.current_debt_start_time;
 
