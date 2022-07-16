@@ -1,7 +1,7 @@
 # Peter-s-Work-Space
 Private Peter's Work Space
 
-# Ground Finance: Make a Ground for your journey into Web 3!
+# Ground Packages: Make a Ground for your journey into Web 3!
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -32,7 +32,9 @@ Clone this git repository: `git clone https://github.com/unghuuduc/community-scr
 2. Quick test: `scrypto test`
 
 ### PTE test
-The test used both the PTE resim client and the PTE Browser Extension, *the test will be running on https://pte01.radixdlt.com/ sever*
+The test used both the PTE resim client and the PTE Browser Extension, *the test will be running on https://pte01.radixdlt.com/ sever*.
+
+*For now the test will be only for the Ground Finance Package*
 
 **Test Component initializing and get testing resource through resim client:**
 1. Connect to the PTE `cd resim-client && resim-client --address pte01-socket.radixdlt.com:8010`
