@@ -789,6 +789,8 @@ blueprint! {
             
             let credit_service: GroundCredit = self.credit_service.into();
 
+            assert!(self.total_return != Decimal::ZERO, "Currently there's no resource on the protocol's vault, please come back later.");
+
             assert!((self.vault.amount() - amount) / self.total_return > self.tolerance_threshold, "Currently you cannot take your credit from this protocol, please come back later.");
 
             credit_service.check_id_and_credit_by_data(id_proof.non_fungible::<Credit>().id(), id_proof.resource_address(), credit_sbt.non_fungible::<Credit>().id(), credit_sbt.resource_address());
@@ -853,6 +855,8 @@ blueprint! {
         /// ### Output: 
         /// All the borrower's installment loan.
         pub fn installment_credit(&mut self, id_proof: Proof, credit_sbt: Proof, installment_credit_badge: Bucket) -> Bucket {
+
+            assert!(self.total_return != Decimal::ZERO, "Currently there's no resource on the protocol's vault, please come back later.");
 
             let credit_service: GroundCredit = self.credit_service.into();
 
