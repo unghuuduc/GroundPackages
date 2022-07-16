@@ -1,0 +1,8 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "Ground_Business/Cargo.toml",
+        "Ground_Finance/Cargo.toml",
+        "Ground_ID/Cargo.toml",
+        "Ground_Test/Cargo.toml",
+    ]
+}
