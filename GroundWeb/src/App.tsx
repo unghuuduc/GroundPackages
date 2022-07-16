@@ -7,8 +7,6 @@ import { getAccountAddress, signTransaction } from 'pte-browser-extension-sdk'
 import { CreditSBT, GroundCreditComponent, GroundLendingComponent, IDSBT, InstallmentCreditBadge, InstallmentCreditRequestBadge, LendingAccount, StableCoin } from './assets/GROUND_ADDRESS'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const lightgreen = { color: 'lightgreen' }
   const lightblue = { color: 'lightblue' }
   const red = { color: 'red' }
   const blanchedalmond = { color: 'blanchedalmond' }
@@ -301,7 +299,11 @@ function App() {
           <a className='borrower-role-button'>Take a loan</a>
       </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick={repay_loan}>
       <a className='borrower-role-button'>Make a repayment</a>
-        </button><p><a style={{fontSize: '20px', color: 'white'}}>For Installment Credit user</a></p>
+        </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick={change_credit}>
+      <a className='borrower-role-button'>Change Credit Type</a>
+        </button>
+        <p><a style={{fontSize: '20px', color: 'lightpurple'}}>Notice for tester: The borrow must be made "AFTER" the lenders get their accounts <br/> according to the data on NeuRacle component or the lenders won't get the interest!</a></p>
+        <p><a style={{fontSize: '20px', color: 'white'}}>For Installment Credit user</a></p>
         <button type="button" onClick={request_installment_credit}>
       <a className='borrower-role-button'>Request Installment Credit</a>
         </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onClick={use_installment_credit}>
@@ -474,6 +476,29 @@ function App() {
       return
   }
 
+  async function change_credit() {
+      
+        const manifest = new ManifestBuilder()
+        .createProofFromAccount(accountAddress!, IDSBT)
+        .popFromAuthZone("IDProof")
+        .createProofFromAccount(accountAddress!, CreditSBT)
+        .popFromAuthZone("CreditProof")
+        .callMethod(GroundCreditComponent, 'change_credit_type', [`Proof("IDProof") Proof("CreditProof")`])
+        .callMethodWithAllResources(accountAddress!, 'deposit_batch')
+        .build()
+        .toString();
+
+      const receipt = await signTransaction(manifest);
+
+      if (receipt.status == 'Success') {
+        success_big("Done!", '' + receipt.logs.toString());
+      } else {
+        failure_big("Failed", '' + receipt.logs.toString());
+      }
+
+      setRefresh(true)
+  }
+
   async function request_installment_credit() {
     const result = prompt("How much you wish to take on the installment credit?");
       if (result == null) {
@@ -504,6 +529,7 @@ function App() {
         }
       }
   }
+
   async function use_installment_credit() {
     const manifest = new ManifestBuilder()
       .createProofFromAccount(accountAddress!, IDSBT)

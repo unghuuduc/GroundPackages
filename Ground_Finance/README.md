@@ -137,7 +137,7 @@ Even if the Ground Finance protocol and the Ground ID service are ran by the sam
 
 Confronting such risk, the protocol included a compensate method which utilized [GroundBusiness](../Ground_Business/) package to back the protocol through the DAO's treasury.
 
-### Study about the Ground Finance package**: 
+### Study more about the Ground Finance package**: 
 `cargo doc --no-deps --document-private-items --open`
 
 ## License & P/s
