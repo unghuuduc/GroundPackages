@@ -49,11 +49,13 @@ function App() {
 
     if (credit_type == "Revolving") {
       let name = data2[1].fields[0].name
-      credit_type = name + ' ' + credit_type
+      credit_type = name + ' ' + credit_type + " Credit"
       if (name == "Monthly") {
         maximum_allowance = maximum_allowance / 12
       }
     } else if (credit_type == "Installment") {
+      let name = data2[1].fields[0].name
+      credit_type = name + ' ' + credit_type + " Credit"
       allowance = 0
     }
 
