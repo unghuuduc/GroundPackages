@@ -1,6 +1,3 @@
-# Peter-s-Work-Space
-Private Peter's Work Space
-
 # Ground Packages: Make a Ground for your journey into Web 3!
 
 Ground Packages contains 3 main blueprint packages with a wide-range of usecases built on Radix Ledger: on-chain unique identity service; on-chain lending protocol & credit service; on-chain human resource service & Proof of Concept DAO.
