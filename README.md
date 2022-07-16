@@ -34,7 +34,7 @@ Clone this git repository: `git clone https://github.com/unghuuduc/community-scr
 ### PTE test
 The test used both the PTE resim client and the PTE Browser Extension, *the test will be running on https://pte01.radixdlt.com/ sever*.
 
-*For now the test will be only for the Ground Finance Package*
+*For now the test engine can only test the Ground Finance Package, will implement more test on the future*
 
 **Test Component initializing and get testing resource through resim client:**
 1. Connect to the PTE `cd resim-client && resim-client --address pte01-socket.radixdlt.com:8010`
